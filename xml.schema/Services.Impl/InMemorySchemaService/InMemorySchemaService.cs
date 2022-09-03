@@ -12,7 +12,7 @@ public class InMemorySchemaService : ISchemaService
         };
     }
     
-    public string GetSchema(string xmlNamespace)
+    public string? GetSchema(string xmlNamespace)
     {
         if (!_namespaces.TryGetValue(xmlNamespace, out var filename))
         {

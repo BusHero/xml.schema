@@ -2,5 +2,5 @@
 
 public interface ISchemaService
 {
-    string GetSchema(string xmlNamespace);
+    string? GetSchema(string xmlNamespace);
 }
