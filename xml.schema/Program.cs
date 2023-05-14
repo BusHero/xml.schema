@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using xml.schema.Data;
-using xml.schema.Services;
-using xml.schema.Services.Impl.sql;
+using xml.schema.SchemaService;
+using xml.schema.SchemaService.Disk;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<ISchemaService, SqlSchemaService>();
+builder.Services.AddScoped<ISchemaService, DiskSchemaService>();
 builder.Services.AddDbContext<SchemaContext>(options => options
     .UseSqlServer(builder
         .Configuration

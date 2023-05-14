@@ -1,18 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using xml.schema.Services;
+using xml.schema.SchemaService;
 
 namespace xml.schema.Pages;
 
-public class IndexModel : PageModel
+public sealed class IndexModel : PageModel
 {
     private readonly ISchemaService _schemaService;
-    private readonly ILogger<IndexModel> _logger;
 
-    public IndexModel(ISchemaService schemaService,  ILogger<IndexModel> logger)
+    public IndexModel(ISchemaService schemaService)
     {
         _schemaService = schemaService ?? throw new ArgumentNullException(nameof(schemaService));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     [BindProperty]

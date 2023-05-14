@@ -1,4 +1,4 @@
-﻿namespace xml.schema.Services;
+﻿namespace xml.schema.SchemaService;
 
 public interface ISchemaService
 {

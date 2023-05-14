@@ -1,8 +1,8 @@
 ﻿using xml.schema.Data;
 
-namespace xml.schema.Services.Impl.sql;
+namespace xml.schema.SchemaService.Sql;
 
-internal class SqlSchemaService: ISchemaService
+internal sealed class SqlSchemaService: ISchemaService
 {
     private readonly SchemaContext _context;
 
