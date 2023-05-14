@@ -9,7 +9,7 @@ public class SchemaContext : DbContext
     {
     }
 
-    public DbSet<Schema> Schemas { get; set; }
+    public DbSet<Schema> Schemas { get; init; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
