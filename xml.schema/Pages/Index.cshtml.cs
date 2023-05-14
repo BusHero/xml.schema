@@ -20,10 +20,12 @@ public sealed class IndexModel : PageModel
         
     public void OnPost()
     {
-        if (Schema is not null)
+        if (Schema is null)
         {
-            Result = _schemaService.GetSchema(Schema);
+            return;
         }
+        var result = _schemaService.GetSchema(Schema);
+        Result = result is Result<string>.Success { Value: var value } ? value : "Not found";
     }
 
     public void OnGet()
