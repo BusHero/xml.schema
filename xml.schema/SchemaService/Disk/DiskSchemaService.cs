@@ -8,14 +8,16 @@ internal sealed class DiskSchemaService : ISchemaService
         ["http://schemas.microsoft.com/powershell/help/2010/05"] = "HelpInfo",
     };
 
-    public string GetSchema(string xmlNamespace)
+    public Result<string> GetSchema(string xmlNamespace)
     {
         if (!_namespaces.TryGetValue(xmlNamespace, out var filename))
         {
-            return "Namespace not found";
+            return Result<string>.CreateFailure("Namespace not found");
         }
+        
         var path = $@"resources\schemas\{filename}.xsd";
         var text = File.ReadAllText(path);
-        return text;
+        return Result<string>.CreateSuccess(text);
     }
 }
+
