@@ -11,7 +11,7 @@ internal class SqlSchemaService: ISchemaService
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
     
-    public string GetSchema(string xmlNamespace) =>
+    public string? GetSchema(string xmlNamespace) =>
     (
         from schema in _context.Schemas
         where schema.Namespace == xmlNamespace
