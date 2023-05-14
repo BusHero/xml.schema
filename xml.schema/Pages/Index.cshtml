@@ -3,9 +3,17 @@
 @{
     ViewData["Title"] = "Home page";
 }
-<form asp-action="Index">
-    <input asp-for="Schema">
-    <input type="submit">
+<form method="post">
+    <label asp-for="Schema">Schema:</label>
+    <input asp-for="Schema"/>
+    <button type="submit">Submit</button>
 </form>
 
-<pre>@Model.Result</pre>
+@if (!string.IsNullOrEmpty(Model.Result))
+{
+    <pre>@Model.Result</pre>
+}
+else
+{
+    <p>No result</p>
+}
