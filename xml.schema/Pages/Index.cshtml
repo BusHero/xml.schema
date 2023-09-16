@@ -6,9 +6,10 @@
 <form method="post">
     <label asp-for="Schema">Schema:</label>
     <input asp-for="Schema"/>
-    <button type="submit">Submit</button>
+    <button data-testid='submit' type="submit">Submit</button>
 </form>
 
+<div data-testid="result">
 @if (!string.IsNullOrEmpty(Model.Result))
 {
     <pre>@Model.Result</pre>
@@ -17,3 +18,4 @@ else
 {
     <p>No result</p>
 }
+</div>

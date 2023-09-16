@@ -27,8 +27,4 @@ public sealed class IndexModel : PageModel
         var result = _schemaService.GetSchema(Schema);
         Result = result is Result<string>.Success { Value: var value } ? value : "Not found";
     }
-
-    public void OnGet()
-    {
-    }
 }
