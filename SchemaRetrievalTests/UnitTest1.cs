@@ -36,7 +36,7 @@ public class UnitTest1 : IAsyncLifetime
                 .Add("--no-build")
                 .Add("--project")
                 .Add("XmlSchemaApi"))
-            .WithWorkingDirectory(@"C:\Users\Petru\projects\csharp\xml.schema")
+            .WithWorkingDirectory(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", ".."))
             .WithStandardOutputPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
             // .WithStandardErrorPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
             .ExecuteAsync(tokenSource.Token));
