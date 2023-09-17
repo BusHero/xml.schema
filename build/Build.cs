@@ -1,39 +1,52 @@
-using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
+
 using Nuke.Common;
 using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 namespace _build;
 
-class Build : NukeBuild
+internal class Build : NukeBuild
 {
     public static int Main () => Execute<Build>(x => x.Compile);
 
-    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")] 
+    private readonly Configuration configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [SuppressMessage("ReSharper", "UnusedMember.Local")]
-    Target Clean => _ => _
+    [UsedImplicitly]
+    private Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
         {
-            DotNetClean(_ => _
+            DotNetClean(s => s
                 .EnableNoLogo());
         });
 
-    Target Restore => _ => _
+    private Target Restore => _ => _
         .Executes(() =>
         {
             DotNetRestore();
         });
 
-    Target Compile => _ => _
+    private Target Compile => _ => _
         .DependsOn(Restore)
         .Executes(() =>
         {
             DotNetBuild(_ => _
                 .EnableNoLogo()
-                .SetConfiguration(Configuration)
+                .SetConfiguration(configuration)
                 .EnableNoRestore());
+        });
+
+    [UsedImplicitly]
+    private Target Test => _ => _
+        .TriggeredBy(Compile)
+        .Executes(() =>
+        {
+            DotNetTest(_ => _
+                .EnableNoLogo()
+                .EnableNoBuild()
+                .EnableNoRestore()
+                .SetConfiguration(configuration));
         });
 }

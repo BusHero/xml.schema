@@ -3,9 +3,12 @@ dotnet_style_qualification_for_field = false:warning
 dotnet_style_qualification_for_property = false:warning
 dotnet_style_qualification_for_method = false:warning
 dotnet_style_qualification_for_event = false:warning
-dotnet_style_require_accessibility_modifiers = never:warning
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:error
 
 csharp_style_expression_bodied_methods = true:silent
 csharp_style_expression_bodied_properties = true:warning
 csharp_style_expression_bodied_indexers = true:warning
 csharp_style_expression_bodied_accessors = true:warning
+
+dotnet_diagnostic.CA1822.severity = none
+resharper_all_underscore_local_parameter_name_highlighting = none
