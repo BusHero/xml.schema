@@ -24,3 +24,8 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('src/**/*.csproj') }}
       - name: Build
         run: ./build.sh 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: publish-result
+          path: publish/
