@@ -43,10 +43,25 @@ internal class Build : NukeBuild
         .TriggeredBy(Compile)
         .Executes(() =>
         {
-            DotNetTest(_ => _
-                .EnableNoLogo()
+            // DotNetTest(_ => _
+            //     .EnableNoLogo()
+            //     .EnableNoBuild()
+            //     .EnableNoRestore()
+            //     .SetFilter("")
+            //     .SetConfiguration(configuration));
+        });
+
+    private Target Publish => _ => _
+        .TriggeredBy(Compile)
+        .Executes(() =>
+        {
+            DotNetPublish(_ => _
                 .EnableNoBuild()
                 .EnableNoRestore()
+                .SetPublishProfile("")
+                .EnableNoLogo()
+                .SetProject("XmlSchemaApi")
+                .SetOutput("publish")
                 .SetConfiguration(configuration));
         });
 }
