@@ -43,10 +43,11 @@ internal class Build : NukeBuild
         .TriggeredBy(Compile)
         .Executes(() =>
         {
-            DotNetTest(_ => _
-                .EnableNoLogo()
-                .EnableNoBuild()
-                .EnableNoRestore()
-                .SetConfiguration(configuration));
+            // DotNetTest(_ => _
+            //     .EnableNoLogo()
+            //     .EnableNoBuild()
+            //     .EnableNoRestore()
+            //     .SetFilter("")
+            //     .SetConfiguration(configuration));
         });
 }

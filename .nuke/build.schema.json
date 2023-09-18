@@ -6,7 +6,7 @@
     "build": {
       "type": "object",
       "properties": {
-        "Configuration": {
+        "configuration": {
           "type": "string",
           "description": "Configuration to build - Default is 'Debug' (local) or 'Release' (server)",
           "enum": [
@@ -74,7 +74,8 @@
             "enum": [
               "Clean",
               "Compile",
-              "Restore"
+              "Restore",
+              "Test"
             ]
           }
         },
@@ -86,7 +87,8 @@
             "enum": [
               "Clean",
               "Compile",
-              "Restore"
+              "Restore",
+              "Test"
             ]
           }
         },

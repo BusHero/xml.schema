@@ -38,7 +38,7 @@ public class UnitTest1 : IAsyncLifetime
                 .Add("XmlSchemaApi"))
             .WithWorkingDirectory(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", ".."))
             .WithStandardOutputPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
-            // .WithStandardErrorPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
+            .WithStandardErrorPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
             .ExecuteAsync(tokenSource.Token));
     }
     
