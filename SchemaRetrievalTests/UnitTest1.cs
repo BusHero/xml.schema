@@ -17,6 +17,7 @@ public class UnitTest1 : IAsyncLifetime
     
     [Fact] public async Task Test1()
     {
+        await Task.Delay(1000);
         var client = new HttpClient();
         client.BaseAddress = new Uri("http://localhost:5000");
         var result = await client.GetAsync("greet");
