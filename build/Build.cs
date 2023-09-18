@@ -50,4 +50,18 @@ internal class Build : NukeBuild
             //     .SetFilter("")
             //     .SetConfiguration(configuration));
         });
+
+    private Target Publish => _ => _
+        .TriggeredBy(Compile)
+        .Executes(() =>
+        {
+            DotNetPublish(_ => _
+                .EnableNoBuild()
+                .EnableNoRestore()
+                .SetPublishProfile("")
+                .EnableNoLogo()
+                .SetProject("XmlSchemaApi")
+                .SetOutput("publish")
+                .SetConfiguration(configuration));
+        });
 }
