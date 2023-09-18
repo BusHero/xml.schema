@@ -64,4 +64,12 @@ internal class Build : NukeBuild
                 .SetOutput("publish")
                 .SetConfiguration(configuration));
         });
+
+    private Target RunIntegrationTests => _ => _
+        .Executes(() =>
+        {
+            DotNetTest(_ => _
+                .EnableNoLogo()
+                .SetConfiguration(configuration));
+        });
 }
