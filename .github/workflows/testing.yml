@@ -13,3 +13,7 @@ jobs:
     steps:
       - name: Display Hello, World
         run: echo "Hello, World!"
+      - name: Download artifact
+        run: gh run download 6226532707 -n publish-result
+      - name: list files
+        run: ls -l
