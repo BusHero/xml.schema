@@ -20,13 +20,13 @@ jobs:
           gh run download -n publish-result -R https://github.com/BusHero/xml.schema -D publish
           ls -la publish
           pwd
-#      - name: Checkout
-#        uses: actions/checkout@v3
-#      - name: Setup dotnet
-#        uses: actions/setup-dotnet@v3
-#        with:
-#          dotnet-version: '7.x.x'
-##      - name: Run Integration Tests
-##        run: dotnet ./publish/XmlSchemaApi.dll
-#      - name: test
-#        run: dotnet test
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x.x'
+#      - name: Run Integration Tests
+#        run: dotnet ./publish/XmlSchemaApi.dll
+      - name: test
+        run: dotnet test
