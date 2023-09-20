@@ -28,5 +28,7 @@ jobs:
           pwd
 #      - name: test
 #        run: ./build.sh RunIntegrationTests
+#      - name: test
+#        run: dotnet test
       - name: test
-        run: dotnet test
+        run: dotnet publish/XmlSchemaApi.dll
