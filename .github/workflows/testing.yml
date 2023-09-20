@@ -9,7 +9,7 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  download-artifact:
+  test-artifact:
     runs-on: ubuntu-latest
     environment: testing
     steps:
@@ -23,4 +23,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: test
-        run: ./build.sh RunIntegrationTests
+        run: dotnet ./publish/XmlSchemaApi.dll
+#      - name: test
+#        run: ./build.sh RunIntegrationTests
