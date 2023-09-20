@@ -33,7 +33,7 @@ public class UnitTest1 : IAsyncLifetime
     {
         return Task.Run(() => Cli.Wrap("dotnet")
             .WithArguments(args => args
-                .Add(Path.Combine("publish", "XmlSchemaApi.dll"))
+                .Add(Path.Combine(".", "publish", "XmlSchemaApi.dll"))
             )
             .WithWorkingDirectory(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", ".."))
             .WithStandardOutputPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
