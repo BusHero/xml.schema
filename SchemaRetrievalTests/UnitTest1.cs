@@ -19,7 +19,7 @@ public class UnitTest1 : IAsyncLifetime
     {
         await Task.Delay(1000);
         var client = new HttpClient();
-        client.BaseAddress = new Uri("http://127.0.0.1:5001");
+        client.BaseAddress = new Uri("http://localhost:5000");
         var result = await client.GetAsync("greet");
         
         result.EnsureSuccessStatusCode();
@@ -34,7 +34,7 @@ public class UnitTest1 : IAsyncLifetime
         return Task.Run(() => Cli.Wrap("dotnet")
             .WithArguments(args => args
                 .Add(Path.Combine("publish", "XmlSchemaApi.dll"))
-                .Add(@"--urls=http://127.0.0.1:5001"))
+                .Add(@"--urls=http://localhost:5000"))
             .WithWorkingDirectory(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", ".."))
             .WithStandardOutputPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
             .WithStandardErrorPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
