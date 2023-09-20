@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 
 using Nuke.Common;
+using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
@@ -68,8 +69,14 @@ internal class Build : NukeBuild
     private Target RunIntegrationTests => _ => _
         .Executes(() =>
         {
-            DotNetTest(_ => _
-                .EnableNoLogo()
-                .SetConfiguration(configuration));
+            var handler = new ArgumentStringHandler(0, 0, out var _);
+            handler.AppendLiteral(RootDirectory / "publish" / "XmlSchemaApi.dll");
+            Dotnet(ref handler);
+            // DotNetTest(_ => _
+            //     .EnableNoLogo()
+            //     .SetConfiguration(configuration));
         });
+
+    [PathVariable]
+    private Tool Dotnet;
 }
