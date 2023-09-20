@@ -17,7 +17,6 @@ public class UnitTest1 : IAsyncLifetime
     
     [Fact] public async Task Test1()
     {
-        await Task.Delay(30000);
         var client = new HttpClient();
         client.BaseAddress = new Uri("http://localhost:5000");
         var result = await client.GetAsync("greet");
@@ -29,14 +28,15 @@ public class UnitTest1 : IAsyncLifetime
         response.Should().Be("Hello, World!");
     }
     
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
-        return Task.Run(() => Cli.Wrap("dotnet")
+        Task.Run(() => Cli.Wrap("dotnet")
             .WithArguments("publish/XmlSchemaApi.dll")
             .WithWorkingDirectory("/home/runner/work/xml.schema/xml.schema")
             .WithStandardOutputPipe(PipeTarget.ToDelegate(Console.WriteLine))
             .WithStandardErrorPipe(PipeTarget.ToDelegate(Console.WriteLine))
             .ExecuteAsync(tokenSource.Token));
+        await Task.Delay(1000);
     }
     
     public Task DisposeAsync()
