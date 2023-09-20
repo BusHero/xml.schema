@@ -17,30 +17,24 @@ public class UnitTest1 : IAsyncLifetime
     
     [Fact] public async Task Test1()
     {
-        await Cli.Wrap("/home/runner/work/xml.schema/xml.schema/publish/XmlSchemaApi")
-            .WithWorkingDirectory("/home/runner/work/xml.schema/xml.schema")
-            .WithStandardOutputPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
-            .WithStandardErrorPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
-            .ExecuteAsync(tokenSource.Token);
-        // var client = new HttpClient();
-        // client.BaseAddress = new Uri("http://localhost:5000");
-        // var result = await client.GetAsync("greet");
-        //
-        // result.EnsureSuccessStatusCode();
-        //
-        // var response = await result.Content.ReadAsStringAsync();
-        //
-        // response.Should().Be("Hello, World!");
+        var client = new HttpClient();
+        client.BaseAddress = new Uri("http://localhost:5000");
+        var result = await client.GetAsync("greet");
+        
+        result.EnsureSuccessStatusCode();
+        
+        var response = await result.Content.ReadAsStringAsync();
+        
+        response.Should().Be("Hello, World!");
     }
     
     public Task InitializeAsync()
     {
-        return Task.CompletedTask;
-        // return Task.Run(() => Cli.Wrap("/home/runner/work/xml.schema/xml.schema/publish/XmlSchemaApi")
-        //     .WithWorkingDirectory("/home/runner/work/xml.schema/xml.schema")
-        //     .WithStandardOutputPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
-        //     .WithStandardErrorPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
-        //     .ExecuteAsync(tokenSource.Token));
+        return Task.Run(() => Cli.Wrap("/home/runner/work/xml.schema/xml.schema/publish/XmlSchemaApi")
+            .WithWorkingDirectory("/home/runner/work/xml.schema/xml.schema")
+            .WithStandardOutputPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
+            .WithStandardErrorPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
+            .ExecuteAsync(tokenSource.Token));
     }
     
     public Task DisposeAsync()
