@@ -17,9 +17,8 @@ public class UnitTest1 : IAsyncLifetime
     
     [Fact] public async Task Test1()
     {
-        await Task.Delay(1000);
         var client = new HttpClient();
-        client.BaseAddress = new Uri("http://127.0.0.1:5001");
+        client.BaseAddress = new Uri("http://localhost:5000");
         var result = await client.GetAsync("greet");
         
         result.EnsureSuccessStatusCode();
@@ -29,21 +28,20 @@ public class UnitTest1 : IAsyncLifetime
         response.Should().Be("Hello, World!");
     }
     
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
-        return Task.Run(() => Cli.Wrap("dotnet")
-            .WithArguments(args => args
-                .Add(Path.Combine("publish", "XmlSchemaApi.dll"))
-                .Add(@"--urls=http://127.0.0.1:5001"))
-            .WithWorkingDirectory(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", ".."))
+        _ = Task.Run(() => Cli.Wrap("dotnet")
+            .WithArguments("publish/XmlSchemaApi.dll")
+            .WithWorkingDirectory("/home/runner/work/xml.schema/xml.schema")
             .WithStandardOutputPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
             .WithStandardErrorPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
             .ExecuteAsync(tokenSource.Token));
+        await Task.Delay(1000);
     }
     
-    public Task DisposeAsync()
+    public async Task DisposeAsync()
     {
         tokenSource.Cancel();
-        return Task.CompletedTask;
+        await Task.CompletedTask;
     }
 }
