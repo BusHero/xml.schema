@@ -18,5 +18,9 @@ jobs:
         run: gh run download -n publish-result -R https://github.com/BusHero/xml.schema -D publish
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x.x'
       - name: Run Integration Tests
-        run: ./build.sh --target RunIntegrationTests
+        run: dotnet test
