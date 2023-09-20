@@ -15,18 +15,17 @@ public class UnitTest1 : IAsyncLifetime
         tokenSource = new CancellationTokenSource();
     }
     
-    [Fact] public void Test1()
+    [Fact] public async Task Test1()
     {
-        true.Should().BeFalse();
-        // var client = new HttpClient();
-        // client.BaseAddress = new Uri("http://localhost:5000");
-        // var result = await client.GetAsync("greet");
-        //
-        // result.EnsureSuccessStatusCode();
-        //
-        // var response = await result.Content.ReadAsStringAsync();
-        //
-        // response.Should().Be("Hello, World!");
+        var client = new HttpClient();
+        client.BaseAddress = new Uri("http://localhost:5000");
+        var result = await client.GetAsync("greet");
+        
+        result.EnsureSuccessStatusCode();
+        
+        var response = await result.Content.ReadAsStringAsync();
+        
+        response.Should().Be("Hello, World!");
     }
     
     public Task InitializeAsync()
