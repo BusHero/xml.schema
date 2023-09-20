@@ -12,17 +12,12 @@ public class UnitTest1 : IAsyncLifetime
     public UnitTest1(ITestOutputHelper outputHelper)
     {
         this.outputHelper = outputHelper;
-        tokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+        tokenSource = new CancellationTokenSource();
     }
     
     [Fact] public async Task Test1()
     {
-        await Cli.Wrap("dotnet")
-            .WithArguments("publish/XmlSchemaApi.dll")
-            .WithWorkingDirectory("/home/runner/work/xml.schema/xml.schema")
-            .WithStandardOutputPipe(PipeTarget.ToDelegate(Console.WriteLine))
-            .WithStandardErrorPipe(PipeTarget.ToDelegate(Console.WriteLine))
-            .ExecuteAsync(tokenSource.Token);
+        await Task.CompletedTask;
         // var client = new HttpClient();
         // client.BaseAddress = new Uri("http://localhost:5000");
         // var result = await client.GetAsync("greet");
@@ -36,19 +31,17 @@ public class UnitTest1 : IAsyncLifetime
     
     public Task InitializeAsync()
     {
-        return Task.CompletedTask;
-        // return Task.Run(() => Cli.Wrap("dotnet")
-        //     .WithArguments(args => args
-        //         .Add(Path.Combine("publish", "XmlSchemaApi.dll")))
-        //     .WithWorkingDirectory("/home/runner/work/xml.schema/xml.schema")
-        //     .WithStandardOutputPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
-        //     .WithStandardErrorPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
-        //     .ExecuteAsync(tokenSource.Token));
+        return Task.Run(() => Cli.Wrap("dotnet")
+            .WithArguments("publish/XmlSchemaApi.dll")
+            .WithWorkingDirectory("/home/runner/work/xml.schema/xml.schema")
+            .WithStandardOutputPipe(PipeTarget.ToDelegate(Console.WriteLine))
+            .WithStandardErrorPipe(PipeTarget.ToDelegate(Console.WriteLine))
+            .ExecuteAsync(tokenSource.Token));
     }
     
     public Task DisposeAsync()
     {
-        // tokenSource.Cancel();
+        tokenSource.Cancel();
         return Task.CompletedTask;
     }
 }
