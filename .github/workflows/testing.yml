@@ -3,7 +3,7 @@ on:
   workflow_dispatch: 
   push:
     branches:
-      - test
+      - master
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -15,18 +15,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-#      - name: Setup dotnet
-#        uses: actions/setup-dotnet@v3
-#        with:
-#          dotnet-version: 7.x.x
       - name: download artifact
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          gh run download -n publish-result -R https://github.com/BusHero/xml.schema -D publish
-          ls -la publish
-          pwd
+        run: gh run download -n publish-result -R https://github.com/BusHero/xml.schema -D publish
       - name: test
         run: ./build.sh RunIntegrationTests
-#      - name: test
-#        run: dotnet test
