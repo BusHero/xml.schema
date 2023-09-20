@@ -33,15 +33,15 @@ public class UnitTest1 : IAsyncLifetime
         _ = Task.Run(() => Cli.Wrap("dotnet")
             .WithArguments("publish/XmlSchemaApi.dll")
             .WithWorkingDirectory("/home/runner/work/xml.schema/xml.schema")
-            .WithStandardOutputPipe(PipeTarget.ToDelegate(Console.WriteLine))
-            .WithStandardErrorPipe(PipeTarget.ToDelegate(Console.WriteLine))
+            .WithStandardOutputPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
+            .WithStandardErrorPipe(PipeTarget.ToDelegate(outputHelper.WriteLine))
             .ExecuteAsync(tokenSource.Token));
         await Task.Delay(1000);
     }
     
-    public Task DisposeAsync()
+    public async Task DisposeAsync()
     {
         tokenSource.Cancel();
-        return Task.CompletedTask;
+        await Task.CompletedTask;
     }
 }
