@@ -26,6 +26,8 @@ jobs:
         with:
           dotnet-version: '7.x.x'
       - name: test
-        run: dotnet ./publish/XmlSchemaApi.dll
+        run: |
+          cd publish
+          dotnet XmlSchemaApi.dll
 #      - name: test
 #        run: ./build.sh RunIntegrationTests
